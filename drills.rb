@@ -52,7 +52,7 @@ end
   # returns the first letter of the given word
   # lowercases the first letter of the given word
 
-def first_char(word)
+def first_char (word)
   word.chars.first.downcase
 end
 
@@ -61,39 +61,65 @@ end
   # includes the given word in its return value
   # repeats the given word 3 times
 
-def polly_wanna(word)
+def polly_wanna (word)
   return word*3
 end
 
 #count_chars
   # returns the number of characters in the given string
-def count_chars(word)
-  return word.length
-end
 
+def count_chars(string)
+  string.length
+end
 
 #yell
   # convert the given message to uppercase
   # adds an exclamation point to the end of the given message
 
+def yell (message)
+  return message.upcase + "!"
+end
+
 #to_telegram
   # replaces periods in the input string with ' STOP'
+
+def to_telegram (message)
+  message.gsub(/\./, " STOP")
+end
 
 #spell_out
   # returns the input string, with characters seperated by dashes
   # converts the input string to lowercase
+def spell_out (message)
+  message.downcase.split("").join("-")
+end
 
 #seperate
   # seperates characters in the input string with a custom seperator, when supplied with one
   # seperates characters in the input string with dashes (by default)
 
+def seperate (word, seperator="-")
+  word.split("").join(seperator)
+end
+
 #croon
   # seperates characters in each word of the input phrase with dashes
   # preserves whitespace between words
 
+def croon (word)
+  word.split(" ").map {|word| word.split("").join("-") }.join(" ")
+end
+
+
+
 #palindrome_word?
   # determines whether a single given word is a palindrome
   # ignores case
+
+def palindrome_word?(word)
+  normalize = word.downcase
+  normalize == normalize.reverse
+end
 
 #palindrome_sentence?
   # determines whether a given sentence is a palindrome
@@ -101,16 +127,31 @@ end
   # ignores whitespace
   # ignores punctuation
 
+def palindrome_sentence? (sentence)
+  normalized = sentence.gsub(/[^a-z]/i, "").downcase
+  normalized == normalized.reverse
+end
+
+
 #is_vowel
   # determines whether a given character is a vowel
   # ignores case
   # returns false for non-letter inputs
+def is_vowel (char)
+  char.is_a?(String) && !!char.match(/[aeiou]/i)
+end
 
 #add_period
   # adds a period to the end of the given sentence
   # does not add a period if one is already there
   # does not add a period if any form of terminal punctuation is present
+  def terminal_punctuation?(word)
+    word.end_with?(".")
+  end
 
+  def add_period(input)
+    "!?.".include?(input[-1]) ? input : input + "."
+  end  
 
 ###########################
 #### LOOPS & ITERATORS ####
