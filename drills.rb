@@ -151,7 +151,7 @@ end
 
   def add_period(input)
     "!?.".include?(input[-1]) ? input : input + "."
-  end  
+  end
 
 ###########################
 #### LOOPS & ITERATORS ####
@@ -209,15 +209,15 @@ end
 #count_to
   # returns an array containing every integer from 0 to the input n
   # rounds off decimals
-def count_to(num)
+  def count_to(n)
+    n = n.to_i
+    if n >= 0
+      0.upto(n).to_a  # or (0..n).to_a
+    else
+      0.downto(n).to_a
+    end
+  end
 
-  [*0..num].all? {|i| i.is_a?(Integer) }
-  # num_arr = []
-  # num.times do |i|
-  #   num_arr.push(num)
-  #
-  # return num_arr
-end
 
 #is_integer?
   # returns true for Fixnums and Bignums (whole number or 'integer' types)
@@ -229,6 +229,10 @@ end
 #   num = num.to_s
 # end
 
+def is_integer?(num)
+  num.class == Fixnum || num.class == Bignum ||
+    ( num.is_a?(Float) && !num.nan? && num.to_i == num )
+end
 
 
 #is_prime?
@@ -236,6 +240,24 @@ end
   # returns false for numbers less than or equal to 1
   # returns false for numbers divisible by anything but 1 and themselves
   # returns true for prime numbers
+
+  def is_prime?(num)
+    if !is_integer?(num) || num <= 1 # checking if whole number
+      false
+    elsif num <= 1 # checking if in range
+      false
+    else
+      # this could be a prime! loop through and check divisibility
+      (2..(num-1)).each do |n|
+        if num % n == 0 # it's not prime
+          return false  # break the loop early
+        end
+      end
+      true
+    end
+  end
+
+
 
 #primes_less_than
   # returns an empty array if there are no primes below num
@@ -258,11 +280,45 @@ end
   # counts how many times each character appears in the input string
   # ignores case
 
+def character_count(sentence)
+  char_counts = {}
+  sentence.each_char do |char|
+    char = char.downcase
+    if char_counts[char].nil?
+      char_counts[char] = 1
+    else
+      char_counts[char] += 1
+    end
+  end
+  char_counts
+end
+
+
 #word_count
   # returns a hash
   # counts how many times a word appears in the input string
   # ignores case
   # ignores characters that are not in the sequence a-z
 
+def word_count(sentence)
+  word_counts = {}
+  sentence.split(" ").each do |word|
+    word = word.downcase.gsub(/[^a-z]/i, "")
+    if word_counts[word].nil?
+      word_counts[word] = 1
+    else
+      word_counts[word] += 1
+    end
+  end
+  word_counts
+end
+
+
+
 #most_frequent_word
   # finds the word in the input string that appears with the most frequency
+
+def most_frequent_word(sentence)
+  word_counts = word_count(sentence)
+  word_counts.empty? ? nil : word_counts.invert.max[1]
+end
