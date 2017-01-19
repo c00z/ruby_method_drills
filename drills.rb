@@ -4,22 +4,46 @@
 #say_hello
   # returns 'hello'
 
+  def say_hello
+    return "hello"
+  end
+
+
 #echo
   # echoes (returns) the input string
+
+def echo (str)
+  return str
+end
+
 
 #get_fruit
   # returns the fruit that corresponds to the given id
   # does not raise an error when the id argument is missing
   # defaults to 'apple' when no id argument is supplied
+#
+
+def get_fruit(id=0)
+  fruit = ["apple", "pear"]
+  return fruit[id]
+end
 
 #how_many_args
   # accepts any number of arguments without error
   # returns the total number of arguments passed to the function
 
+def how_many_args(*arg)
+  return arg.count
+end
+
 #find_answer
   # returns the value associated with the 'answer' keyword argument
   # returns nil if it cannot find the 'answer' keyword argument
   # raises an error when given non-keyword arguments
+
+def find_answer(**kwargs)
+  kwargs[:answer]
+end
 
 ##############################
 #### MANIPULATING STRINGS ####
@@ -28,12 +52,25 @@
   # returns the first letter of the given word
   # lowercases the first letter of the given word
 
+def first_char(word)
+  word.chars.first.downcase
+end
+
+
 #polly_wanna
   # includes the given word in its return value
   # repeats the given word 3 times
 
+def polly_wanna(word)
+  return word*3
+end
+
 #count_chars
   # returns the number of characters in the given string
+def count_chars(word)
+  return word.length
+end
+
 
 #yell
   # convert the given message to uppercase
@@ -81,11 +118,24 @@
 #count_spaces
   # counts the spaces in a given string
 
+def count_spaces (word)
+  word.count ' '
+end
+
 #string_lengths
   # converts a given list of strings to a list of string lengths
 
+def string_lengths(arr)
+  return arr.map { |e| e.length}
+end
+
 #remove_falsy_values
   # filters out falsy values from the input array
+def remove_falsy_values(arr)
+return arr.select { |e| !!e }
+end
+
+
 
 #exclude_last
   # removes the last item from an input array
@@ -118,13 +168,27 @@
 #count_to
   # returns an array containing every integer from 0 to the input n
   # rounds off decimals
+def count_to(num)
+
+  [*0..num].all? {|i| i.is_a?(Integer) }
+  # num_arr = []
+  # num.times do |i|
+  #   num_arr.push(num)
+  #
+  # return num_arr
+end
 
 #is_integer?
   # returns true for Fixnums and Bignums (whole number or 'integer' types)
   # returns true for Floats (decimals) equal to integers
   # returns false for non-integer decimals
   # returns false for Float::NAN
-  # returns false for non-numbers
+#   # returns false for non-numbers
+# def is_integer (num)
+#   num = num.to_s
+# end
+
+
 
 #is_prime?
   # returns false for non-integer decimals
